@@ -1,4 +1,4 @@
-///<reference path="Chaff.ts" />
+///<reference path="./../Chaff/Chaff.ts" />
 declare var describe;
 declare var it;
 declare var expect;
@@ -13,7 +13,7 @@ class Person {
 	}
 	public GetName():string{
 		return this.Name;
-	}
+	}	
 }
 
 class ChaffTests implements Chaff.ITestable<ChaffTests, Person>{
@@ -35,12 +35,6 @@ class ChaffTests implements Chaff.ITestable<ChaffTests, Person>{
 		});
 
 		describe("Arguments being passed in upon initalisation", () =>{
-			it("Should pass the provided args array literal into the constructor", () => {
-				var person = new Chaff.Mock<Person>(Person,[4,"Adam"]).Create();
-				expect(person.Age).toBe(4);
-				expect(person.GetName()).toBe("Adam");
-			});
-
 			it("Should pass the provided args array object into the constructor", () => {
 				var person = new Chaff.Mock<Person>(Person,new Array<any>(4,"Adam")).Create();
 				expect(person.Age).toBe(4);

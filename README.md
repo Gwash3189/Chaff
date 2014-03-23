@@ -1,7 +1,7 @@
 #Chaff *(n)*: worthless things; rubbish.#
 
 
-Quick, Test Framework Agnostic Easy Object Mocking in Typescript.
+A small (500 byte), test framework agnostic, object mocking library.
 
 ##Where##
 
@@ -26,8 +26,8 @@ Chaff offers an easy to use interface with (nearly) complete type safety.
 </// reference path="Chaff.ts" />
 
 // class to test
-class Person{	
-	constructor(public Age: number){}
+class Person{    
+    constructor(public Age: number){}
 	Older(){
 		this.Age ++;
 	}
@@ -128,7 +128,9 @@ class Person{
 
 //Test Class
 class PersonTest implements Chaff.ITestable<PersonTest,Person>{
-  
+    // provide them in the form of an array.
+    // make sure to provide them in the same order in which they appear 
+    // in the objects  constructor function. 
 	public Mock = new Chaff.Mock<Person>(Person, new Array<any>(4,"Chaff"));
 	public Bob: Person;
 	constructor() {			
@@ -149,7 +151,36 @@ class PersonTest implements Chaff.ITestable<PersonTest,Person>{
 //Run the test
 var Test = new PersonTest();
 ```
+###JavaScript###
+####Example####
+```javascript
+var Person = function(Age, Name){
+    this.Age = Age;
+    this.Name = Name;
+}
 
-For better or further examples, please see ChaffTests.ts. 
+var PersonTest = function(){
+    this.Mock = new Chaff.Mock(Person, [undefined, "Chaff"]);
+    
+    var mockPerson = this.Mock
+        // No use for Private as there is not Private in Javascript.
+        .With(function(person){
+            person.Age = 4;
+        })
+        .Create(); //returns a new person object with an age of 4. 
+        
+    if(mockPerson.Age !== 4 && mockperson.Name !=== "Chaff"){
+        console.error("Not 4 and not Chaff");
+    } else {
+        console.log("4 and Chaff!");
+    }
+}
+```
+
+### Testing ###
+
+To run any tests, simply install [Testem](https://github.com/airportyh/testem "Testem"). Navigate to the ```/src/tests``` directory and run ```testem```. 
+
+For better or further examples, please see src/tests/ChaffTests.ts. 
 
 Happy Testing!

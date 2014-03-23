@@ -35,7 +35,6 @@ var Chaff;
     })();
     Chaff.Mock = Mock;
 })(Chaff || (Chaff = {}));
-///<reference path="Chaff.ts" />
 
 var Person = (function () {
     function Person(Age, name) {
@@ -74,12 +73,6 @@ var ChaffTests = (function () {
         });
 
         describe("Arguments being passed in upon initalisation", function () {
-            it("Should pass the provided args array literal into the constructor", function () {
-                var person = new Chaff.Mock(Person, [4, "Adam"]).Create();
-                expect(person.Age).toBe(4);
-                expect(person.GetName()).toBe("Adam");
-            });
-
             it("Should pass the provided args array object into the constructor", function () {
                 var person = new Chaff.Mock(Person, new Array(4, "Adam")).Create();
                 expect(person.Age).toBe(4);

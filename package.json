@@ -1,0 +1,31 @@
+{
+  "name": "Chaff",
+  "version": "0.1.0",
+  "description": "Easy object mocking for Typescript (and Javascript)",
+  "main": "Chaff.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gwash3189/Chaff.git"
+  },
+  "keywords": [
+    "Chaff",
+    "Testing",
+    "Mocking",
+    "Mock",
+    "Typescript"
+  ],
+  "author": "Adam Beck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gwash3189/Chaff/issues"
+  },
+  "homepage": "https://github.com/Gwash3189/Chaff",
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-typescript": "^0.2.10",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
