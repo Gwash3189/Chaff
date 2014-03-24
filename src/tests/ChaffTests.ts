@@ -13,7 +13,7 @@ class Person {
 	}
 	public GetName():string{
 		return this.Name;
-	}	
+	}
 }
 
 class ChaffTests implements Chaff.ITestable<ChaffTests, Person>{
@@ -36,12 +36,24 @@ class ChaffTests implements Chaff.ITestable<ChaffTests, Person>{
 
 		describe("Arguments being passed in upon initalisation", () =>{
 			it("Should pass the provided args array object into the constructor", () => {
-				var person = new Chaff.Mock<Person>(Person,new Array<any>(4,"Adam")).Create();
+				var person = new Chaff.Mock<Person>(Person,[4,"Adam"]).Create();
 				expect(person.Age).toBe(4);
 				expect(person.GetName()).toBe("Adam");
 			});
 		});
+
+        describe("Generic Chaff Tests", () => {
+            it("Should return a object with no 'With' call", () => {
+                var person = new Chaff.Mock<Person>(Person).Create();
+                expect(person).toNotBe(null);
+                expect(person).toNotBe(undefined);
+                expect(person.Age).toBe(undefined);
+                expect(person.GetName()).toBe(undefined);
+            })
+        })
 	}
 }
 
-var a = new ChaffTests();
+(() => {
+    return new ChaffTests();
+})();

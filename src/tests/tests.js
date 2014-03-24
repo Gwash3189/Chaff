@@ -4,32 +4,34 @@ var Chaff;
         function Mock(Type, Args) {
             this.Type = Type;
             if (Args) {
-                this.MakeType(Args);
+                this.Args = Args;
             }
         }
         Mock.prototype.With = function (mutator) {
-            if (!this.CreatedType) {
-                this.MakeType();
-            }
-            mutator(this.CreatedType);
+            mutator(this.MakeSubject());
             return this;
         };
+
         Mock.prototype.Private = function (mutator) {
-            if (!this.CreatedType) {
-                var t = new this.Type();
-                this.CreatedType = t;
-            }
-            mutator(this.CreatedType);
+            mutator(this.MakeSubject());
             return this;
         };
+
         Mock.prototype.Create = function () {
+            return this.MakeSubject();
+        };
+
+        Mock.prototype.MakeSubject = function () {
+            if (!this.CreatedType) {
+                this.CreatedType = this.MakeType(this.Args || []);
+            }
             return this.CreatedType;
         };
 
         Mock.prototype.MakeType = function (Args) {
             var holder = new this.Type();
             this.Type.apply(holder, Args);
-            this.CreatedType = holder;
+            return holder;
         };
         return Mock;
     })();
@@ -74,13 +76,25 @@ var ChaffTests = (function () {
 
         describe("Arguments being passed in upon initalisation", function () {
             it("Should pass the provided args array object into the constructor", function () {
-                var person = new Chaff.Mock(Person, new Array(4, "Adam")).Create();
+                var person = new Chaff.Mock(Person, [4, "Adam"]).Create();
                 expect(person.Age).toBe(4);
                 expect(person.GetName()).toBe("Adam");
+            });
+        });
+
+        describe("Generic Chaff Tests", function () {
+            it("Should return a object with no 'With' call", function () {
+                var person = new Chaff.Mock(Person).Create();
+                expect(person).toNotBe(null);
+                expect(person).toNotBe(undefined);
+                expect(person.Age).toBe(undefined);
+                expect(person.GetName()).toBe(undefined);
             });
         });
     }
     return ChaffTests;
 })();
 
-var a = new ChaffTests();
+(function () {
+    return new ChaffTests();
+})();
