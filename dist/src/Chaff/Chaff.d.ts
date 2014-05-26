@@ -1,13 +1,14 @@
 declare module Chaff {
-    interface ITestable<SpecClass, Subject> {
+    interface ITest<Subject> {
         Mock: Mock<Subject>;
     }
     class Mock<T> {
-        private Type;
+        private ConstructorFunction;
         private CreatedType;
         private Args;
-        constructor(Type: any, Args?: any[]);
+        constructor(ConstructorFunction: any);
         public With(mutator: (obj: T) => void): Mock<T>;
+        public ConstructWith(Args: any[]): Mock<T>;
         public Private(mutator: (obj: any) => void): Mock<T>;
         public Create(): T;
         public MakeSubject(): T;

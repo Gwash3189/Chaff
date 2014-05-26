@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "description": "Easy object mocking for Typescript (and Javascript)",
   "main": "Chaff.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/Gwash3189/Chaff.git"
@@ -23,9 +22,9 @@
   },
   "homepage": "https://github.com/Gwash3189/Chaff",
   "devDependencies": {
-    "grunt": "^0.4.4",
+    "grunt": "~0.4.5",
     "grunt-contrib-uglify": "^0.4.0",
-    "grunt-typescript": "^0.2.10",
+    "grunt-typescript": "~0.3.6",
     "grunt-contrib-watch": "^0.6.1"
   }
 }

@@ -16,7 +16,7 @@ class Person {
 	}
 }
 
-class ChaffTests implements Chaff.ITestable<ChaffTests, Person>{
+class ChaffTests implements Chaff.ITest<Person>{
 	public Mock = new Chaff.Mock<Person>(Person);
 
 	constructor() {
@@ -34,9 +34,9 @@ class ChaffTests implements Chaff.ITestable<ChaffTests, Person>{
 			});
 		});
 
-		describe("Arguments being passed in upon initalisation", () =>{
+		describe("Arguments being passed in upon initialisation", () =>{
 			it("Should pass the provided args array object into the constructor", () => {
-				var person = new Chaff.Mock<Person>(Person,[4,"Adam"]).Create();
+				var person = new Chaff.Mock<Person>(Person).ConstructWith([4, "Adam"]).Create();
 				expect(person.Age).toBe(4);
 				expect(person.GetName()).toBe("Adam");
 			});

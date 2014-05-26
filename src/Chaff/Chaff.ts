@@ -1,19 +1,20 @@
 module Chaff {
-    export interface ITestable<SpecClass,Subject> {
+    export interface ITest<Subject> {
         Mock: Chaff.Mock<Subject>;
     }
     export class Mock<T> {
         private CreatedType:T;
         private Args:Array<any>;
 
-        constructor(private Type:any, Args?:Array<any>) {
-            if (Args) {
-                this.Args = Args;
-            }
-        }
+        constructor(private ConstructorFunction:any) {}
 
         public With(mutator:(obj:T)=>void):Mock<T> {
             mutator(this.MakeSubject());
+            return this;
+        }
+
+        public ConstructWith(Args: Array<any>):Mock<T>{
+            this.Args = Args;
             return this;
         }
 
@@ -34,8 +35,8 @@ module Chaff {
         }
 
         private MakeType(Args?:Array<any>):T {
-            var holder = new this.Type();
-            this.Type.apply(holder, Args);
+            var holder = new this.ConstructorFunction();
+            this.ConstructorFunction.apply(holder, Args);
             return holder;
         }
     }

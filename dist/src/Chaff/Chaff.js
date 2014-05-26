@@ -1,14 +1,16 @@
 var Chaff;
 (function (Chaff) {
     var Mock = (function () {
-        function Mock(Type, Args) {
-            this.Type = Type;
-            if (Args) {
-                this.Args = Args;
-            }
+        function Mock(ConstructorFunction) {
+            this.ConstructorFunction = ConstructorFunction;
         }
         Mock.prototype.With = function (mutator) {
             mutator(this.MakeSubject());
+            return this;
+        };
+
+        Mock.prototype.ConstructWith = function (Args) {
+            this.Args = Args;
             return this;
         };
 
@@ -29,8 +31,8 @@ var Chaff;
         };
 
         Mock.prototype.MakeType = function (Args) {
-            var holder = new this.Type();
-            this.Type.apply(holder, Args);
+            var holder = new this.ConstructorFunction();
+            this.ConstructorFunction.apply(holder, Args);
             return holder;
         };
         return Mock;
